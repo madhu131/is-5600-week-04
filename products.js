@@ -6,6 +6,7 @@ const productsFile = path.join(__dirname, 'data/full-products.json')
 module.exports = {
   list,
   get,
+  create,
   update,
   remove
 }
@@ -48,6 +49,14 @@ async function get (id) {
 
    // If no product is found, return null
   return null;
+}
+
+/**
+ * Create product placeholder (POST)
+ */
+async function create(data) {
+  console.log("Creating product in service:", data);
+  return { id: `tmp_${Date.now()}`, ...data };
 }
 
 /**

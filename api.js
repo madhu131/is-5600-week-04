@@ -40,33 +40,32 @@ async function getProduct(req, res, next) {
 /**
  * Create a new product
  */
-async function createProduct (req, res) {
-  console.log('request body:', req.body)
-  res.json(req.body)
+async function createProduct(req, res) {
+  const product = await Products.create(req.body);
+  res.status(201).json(product);
 }
+
+
 
 /**
  * Update a product (PUT)
  */
 async function updateProduct(req, res) {
-  console.log("Updating product:", req.params.id, req.body)
-  res.status(200).json({
-    message: "Product updated",
-    id: req.params.id,
-    data: req.body
-  })
+  const result = await Products.update(req.params.id, req.body)
+  res.status(200).json(result)
 }
 
 /**
  * Delete a product (DELETE)
  */
 async function deleteProduct(req, res) {
-  console.log("Deleting product:", req.params.id)
+  await Products.remove(req.params.id)
   res.status(202).json({
     message: "Product deleted",
     id: req.params.id
   })
 }
+
 
 module.exports = autoCatch({
   handleRoot,
